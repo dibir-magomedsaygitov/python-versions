@@ -9,9 +9,10 @@ jobs:
     submodules: true
 
   - bash: | 
-      PYTHON_CONFIGURE_OPTS="--enable-loadable-sqlite-extensions --enable-optimizations --with-openssl=\$(brew --prefix openssl)" \ `
-      LDFLAGS="-L/usr/local/opt/sqlite/lib" \ `
-      CPPFLAGS="-I/usr/local/opt/sqlite/include" \
+      ./configure --enable-loadable-sqlite-extensions --enable-optimizations --with-openssl=$(brew --prefix openssl) `
+      LDFLAGS="-L<path-to-sqlite>" \ `
+      CPPFLAGS="-I<path-to-sqlite>" \ `
+      make -j2
 
   - task: PowerShell@2
     displayName: 'Build Python $(VERSION)'
