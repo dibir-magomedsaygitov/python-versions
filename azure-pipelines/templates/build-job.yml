@@ -8,7 +8,10 @@ jobs:
   - checkout: self
     submodules: true
 
-  - bash: sudo xcode-select -s "/Applications/Xcode_12.5.app"
+  - bash: | 
+      PYTHON_CONFIGURE_OPTS="--enable-loadable-sqlite-extensions --enable-optimizations --with-openssl=\$(brew --prefix openssl)" \ `
+      LDFLAGS="-L/usr/local/opt/sqlite/lib" \ `
+      CPPFLAGS="-I/usr/local/opt/sqlite/include" \
 
   - task: PowerShell@2
     displayName: 'Build Python $(VERSION)'
